@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: schedule-servicedeployment
+  namespace: shankar
 spec:
   replicas: 1
   selector:
@@ -13,8 +14,8 @@ spec:
         component: scheduleservice
     spec:
       containers:
-        - name: publishservice
-          image: kantime/scheduleservice:latest
+        - name: scheduleservice
+          image: dockershankar/scheduleservice:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -37,12 +38,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: scheduleservice
+  namespace: shankar
 spec:
   type: NodePort
   selector:
     component: scheduleservice
   ports:
     - port: 80
-      nodePort: 30146
+      nodePort: 30148
       targetPort: 80
 
