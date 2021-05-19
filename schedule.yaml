@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: schedule-servicedeployment
+  namespace: evv-prod
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: scheduleservice
+  template:
+    metadata:
+      labels:
+        component: scheduleservice
+    spec:
+      containers:
+        - name: publishservice
+          image: kantime/scheduleservice:Production_v7.9
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+          resources:
+            limits:
+              memory: 2Gi
+              cpu: 500m
+            requests:
+              memory: 1Gi
+              cpu: 250m
+      imagePullSecrets:
+        - name: regcred
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: scheduleservice
+  namespace: evv-prod
+spec:
+  type: NodePort
+  selector:
+    component: scheduleservice
+  ports:
+    - port: 80
+      nodePort: 30146
+      targetPort: 80

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: schedule-servicedeployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: scheduleservice
+  template:
+    metadata:
+      labels:
+        component: scheduleservice
+    spec:
+      containers:
+        - name: publishservice
+          image: kantime/scheduleservice:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Development"
+          resources:
+            limits:
+              memory: 350Mi
+              cpu: 200m
+            requests:
+              memory: 250Mi
+              cpu: 100m
+      imagePullSecrets:
+        - name: regcred
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: scheduleservice
+spec:
+  type: NodePort
+  selector:
+    component: scheduleservice
+  ports:
+    - port: 80
+      nodePort: 30146
+      targetPort: 80
+
