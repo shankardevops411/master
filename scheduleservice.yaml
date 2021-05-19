@@ -14,8 +14,8 @@ spec:
         component: scheduleservice
     spec:
       containers:
-        - name: scheduleservice
-          image: dockershankar/scheduleservice:latest
+        - name: publishservice
+          image: kantime/scheduleservice:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -24,10 +24,10 @@ spec:
               value: "Development"
           resources:
             limits:
-              memory: 350Mi
-              cpu: 200m
+              memory: 200Mi
+              cpu: 100m
             requests:
-              memory: 250Mi
+              memory: 150Mi
               cpu: 100m
       imagePullSecrets:
         - name: regcred
@@ -47,4 +47,3 @@ spec:
     - port: 80
       nodePort: 30148
       targetPort: 80
-
