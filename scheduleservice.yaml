@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: publishservice
-          image: kantime/scheduleservice:latest
+          image: dockershankar/scheduleservice:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
