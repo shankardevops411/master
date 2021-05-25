@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: publishservice
-          image: dockershankar/scheduleservicetest:${DOCKER_TAG}
+          image: dockershankar/scheduleservicetest:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
