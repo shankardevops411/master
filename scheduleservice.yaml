@@ -30,7 +30,7 @@ spec:
               memory: 150Mi
               cpu: 100m
       imagePullSecrets:
-        - name: regcred
+        - name: regcred-nexus
 
 ---
 
