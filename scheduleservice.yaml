@@ -45,5 +45,5 @@ spec:
     component: scheduleservice
   ports:
     - port: 80
-      nodePort: 30148
+      nodePort: 30149
       targetPort: 80
